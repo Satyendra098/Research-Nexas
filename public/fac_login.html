@@ -6,12 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SignIn (stakeholder)</title>
     <link rel="stylesheet" href="css/login_style.css">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="images/Research_Nexas_favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/Research_Nexas_favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/Research_Nexas_favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="images/Research_Nexas_favicon_io/site.webmanifest">
+    
 </head>
 
-<body>
+<body>  <div style="position: absolute; bottom: 30px; left: 30px;" class="gtranslate_wrapper"></div>
+    <script>
+        const token = localStorage.getItem('accessToken');
+        if (!token) {
+            window.location.href = '/';
+        }
+       window.gtranslateSettings = {
+         default_language: "en",
+         detect_browser_language: true,
+         wrapper_selector: ".gtranslate_wrapper",
+         font_size: 100,
+       };
+     </script>
+     <script
+     src="https://cdn.gtranslate.net/widgets/latest/popup.js"
+     defer
+   ></script>
+    <img src="images/moon.webp" id="icon">
     <div class="container">
         <div class="image">
-            <img src="images/logo.png" alt="">
+            <img src="images/logo1.png" alt="">
         </div>
         <div id="box2">
             <p>Sorry! User not found</p>
@@ -43,6 +66,24 @@
         </div>
     </div>
     <script>
+        var icon =document.getElementById("icon");
+        icon.onclick = function(){
+            document.body.classList.toggle("dark-theme");
+            if(document.body.classList.contains("dark-theme")){
+                icon.src="images/sun.png";
+            }
+            else{
+                icon.src="images/moon.png";
+            }
+        }
+
+        function isValidEmail(email) {
+            // List of allowed domains
+            const allowedDomains = ["gmail.com", "outlook.com", "yahoo.com", "protonmail.com", "icloud.com", "tutanota.com"];
+            const domain = email.split('@')[1];
+            return allowedDomains.includes(domain);
+        }
+
         const register = async () => {
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
@@ -50,7 +91,14 @@
             const result2 = document.getElementById('box2')
             const result3 = document.getElementById('box3')
             const result4 = document.getElementById('box4')
-            const response = await fetch('http://localhost:3000/fac_login', {
+
+            // Validate email domain
+            if (!isValidEmail(email)) {
+                alert('Please use a valid email from Gmail, Outlook, or other reputable providers.');
+                return;
+            }
+            
+            const response = await fetch('/fac_login', {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
@@ -98,6 +146,18 @@
             }
         }
     </script>
+    <script>
+        window.embeddedChatbotConfig = {
+        chatbotId: "iSwsMwg5TfWCzADbpz05-",
+        domain: "www.chatbase.co"
+        }
+        </script>
+        <script
+        src="https://www.chatbase.co/embed.min.js"
+        chatbotId="iSwsMwg5TfWCzADbpz05-"
+        domain="www.chatbase.co"
+        defer>
+        </script>
 </body>
 
 </html>

@@ -2,47 +2,71 @@ const mysql = require('mysql')
 const bcrypt = require('bcrypt')
 const {generateAccessToken}=require('./token');
 const notify = require('./notification');
-
+const rateLimit = require('express-rate-limit')
 require("dotenv").config()
-const DB_HOST = process.env.DB_HOST
-const DB_USER = process.env.DB_USER
-const DB_PASSWORD = process.env.DB_PASSWORD
-const DB_DATABASE = process.env.DB_DATABASE
-const DB_PORT = process.env.DB_PORT
+const  db  = require('../config/mysql_connection')
 
-const db = mysql.createPool({
-    connectionLimit: 100,
-    host: DB_HOST,
-    user: DB_USER,
-    password: DB_PASSWORD,
-    database: DB_DATABASE,
-    port: DB_PORT
-})
-// connecting database to the server 
+
+// connecting database to the server
 db.getConnection((err, connection) => {
     if (err) throw err;
     console.log("Database Connected Successfully")
 })
 
+const validatePassword = (password) => {
+    const RegexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&^#(){}[\]:;<>,.?~`+=-])[A-Za-z\d@$!%*?&^#(){}[\]:;<>,.?~`+=-]{7,}$/;
+    return RegexPassword.test(password)
+}
+
+const signupRateLimiter = rateLimit({
+    windowMs : 60*60*1000, // 1 hr
+    max : 10,  // max 10 attempts
+    message : "Too many signup attempts , please try again after an hour."
+})
+
+const signinRateLimiter = rateLimit({
+    windowMs : 60*60*1000,
+    max : 15, // max 15 attempts
+    message : "Too many login attempts, please try again after an hour."
+})
+
 const signup=async (req, res) => {
     const username = req.body.name.trim()
     const email = req.body.email.trim().toLowerCase()
+    const password = req.body.password.trim()
+
+    if(!validatePassword(password)){
+        return res.status(400).json({
+            error : "Password Invalid ... Password must be atleast 7 character long and must contain atleast 1 uppercase & lowercase character , 1 number and 1 special character"
+        })
+    }
+
     const hashpassword = await bcrypt.hash(req.body.password, 10);
 
     db.getConnection(async (err, connection) => {
         if (err) throw (err)
-        const sqlSearch = "SELECT * FROM user_table WHERE username=?"
-        const search_query = mysql.format(sqlSearch, [email])
-        const sqlinsert = "INSERT INTO user_table VALUES (0,?,?,?)"
+            const sqlSearch = "SELECT * FROM user_table WHERE email=? OR username=?";
+        const search_query = mysql.format(sqlSearch, [email,username])
+
+        const sqlinsert = "INSERT INTO user_table VALUES (0,?,?,?,'')"
         const insert_query = mysql.format(sqlinsert, [username, email, hashpassword])
         await connection.query(search_query, async (err, result) => {
             if (err) throw (err)
-            console.log("search results")
-            console.log(result.length)
+            console.log("search results",result.length)
             if (result.length != 0) {
                 connection.release()
-                console.log("user already exists")
-                res.sendStatus(409);
+
+                if(result[0].email === email){
+                    console.log("A User with Entered Email already exists")
+                    res.status(404).send(
+                        "Email Already in Use"
+                    )
+                }else if(result[0].username === username){
+                    console.log("A User with Entered Username already exists")
+                    res.status(404).send(
+                        "Username Already in Use"
+                    )
+                }
             }
             else {
                 await connection.query(insert_query, async (err, result) => {
@@ -59,7 +83,7 @@ const signup=async (req, res) => {
     })
 }
 
-// login backend 
+// login backend
 const signin=(req, res) => {
     const email = req.body.email.trim()
     const password = req.body.password.trim();
@@ -93,5 +117,47 @@ const signin=(req, res) => {
     })
 }
 
+const reset=(req, res)=>{
+    const email = req.body.email.trim()
+    const password = req.body.password.trim();
+    const otp = req.body.otp.trim();
+    db.getConnection(async (err, connection) => {
+        if (err) throw (err)
+        const sqlSearch = "Select * from user_table where email=?"
+        const search_query = mysql.format(sqlSearch, [email])
+        await connection.query(search_query, async (err, result) => {
+            if (err) throw (err)
+            if (result.length == 0) {
+                console.log("User does not exist")
+                res.sendStatus(404)
+            }
+            else {
+                // console.log(result);
+                const userOtp = result[0].otp
+
+                if(otp !== userOtp || userOtp.length === 0){
+                    return res.status(400).json({success: false, message: "Invalid otp"})
+                }
+                
+                const hashpassword = await bcrypt.hash(password, 10);
+                
+                const reset_query = `Update user_table set otp=?, password=? where email=?`
+                const query = mysql.format(reset_query, ["", hashpassword, email])
+
+                await connection.query(query, async (err, result) => {
+                    if(err) throw (err)
+                })
+
+                res.json({ success: true, message: "password reset successfully" })
+            }
+            connection.release()
+        })
+    })
+}
+
 // exporting signup,signin funtion
-module.exports={ signup, signin }
+module.exports={
+    signup : [signupRateLimiter,signup],
+    signin : [signinRateLimiter,signin],
+    reset
+}

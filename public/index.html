@@ -5,27 +5,144 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/faq_style.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="images/Research_Nexas_favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/Research_Nexas_favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/Research_Nexas_favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="images/Research_Nexas_favicon_io/site.webmanifest">
+
     <title>Research Nexas</title>
 </head>
 
 <body>
+    <div class="circle-container">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+    </div>
+
+    <script>
+        // Store the mouse coordinates
+        const coords = { x: 0, y: 0 };
+
+        // Select all circles (you can add more circles to HTML as needed)
+        const circles = document.querySelectorAll(".circle");
+
+
+        // Customize the colors for the circles (optional)
+        const colors = ["#ffb56b", "#fdaf69", "#f89d63", "#f59761", "#ef865e", "#ec805d", "#e36e5c", "#df685c", "#d5585c", "#d1525c", "#c5415d", "#c03b5d", "#b22c5e", "#ac265e", "#9c155f", "#950f5f", "#830060", "#7c0060", "#680060", "#60005f", "#48005f", "#3d005e"];
+
+
+        // Initialize circle positions
+        circles.forEach((circle, index) => {
+            circle.x = 0;
+            circle.y = 0;
+            circle.style.backgroundColor = colors[index % colors.length];  // Assign colors
+        });
+
+        // Update mouse coordinates on move
+        window.addEventListener("mousemove", (e) => {
+            coords.x = e.clientX;
+            coords.y = e.clientY;
+        });
+
+        // Animation loop for circles
+        function animateCircles() {
+            let x = coords.x;
+            let y = coords.y;
+
+            circles.forEach((circle, index) => {
+                circle.style.left = `${x - 12}px`;   // Offset for center alignment
+                circle.style.top = `${y - 12}px`;
+
+                circle.style.transform = `scale(${(circles.length - index) / circles.length})`;  // Shrink effect
+
+                circle.x = x;
+                circle.y = y;
+
+                const nextCircle = circles[index + 1] || circles[0];
+                x += (nextCircle.x - x) * 0.3;
+                y += (nextCircle.y - y) * 0.3;
+            });
+
+            requestAnimationFrame(animateCircles);
+        }
+
+        // Start animation
+        animateCircles();
+
+    </script>
+
     <header>
         <!-- navbar section  -->
         <div class="navbar">
             <div class="logo"></div>
-            <div>
+            <div class="main">
                 <nav>
+                    <div class="HamBurger" onclick="toggleMenu()">&#9776;</div>
                     <ul id="navbar">
-                        <li title="Login"><a href="choose-file.html">Login</a></li>
-                        <li title="Contact Us"><a href="./contact-us.html">Contact Us</a></li>
-                        <li title="Our Services"><a href="">Services</a></li>
-                        <li title="About Us"><a href="">About</a></li>
-                        <li title="Main Page"><a href="">Home</a></li>
+                        <li title="Login"><a href="/choose-file.html"><i class='bx bxs-user-circle'></i> Login</a></li>
+                        <li title="Register"><a href="/choose-signup-file.html"><i class='bx bx-log-in-circle'></i>
+                                Register</a></li>
+                        <li title="Contact Us"><a href="/contact-us.html"><i class='bx bxs-contact'></i> Contact Us</a>
+                        </li>
+                        <li title="About"><a href="#about_show"><i class='bx bx-vertical-bottom'></i> About</a></li>
+                        <li title="Services"><a href="#services"><i class='bx bx-bar-chart-square'></i> Services</a>
+                        </li>
+                        <li title="Main Page"><a href="#"><i class='bx bx-home'></i>Home</a></li>
                     </ul>
                 </nav>
+                <div id="language" style="color:white">
+                    <div class="gtranslate_wrapper"></div>
+                    <script>
+                        window.gtranslateSettings = {
+                            default_language: "en",
+                            detect_browser_language: true,
+                            wrapper_selector: ".gtranslate_wrapper",
+                            font_size: 100,
+                        };
+                    </script>
+                    <script src="https://cdn.gtranslate.net/widgets/latest/popup.js" defer></script>
+                </div>
             </div>
         </div>
+
+        <script>
+            function toggleMenu() {
+                const navbar = document.querySelector('#navbar');
+                navbar.classList.toggle('active');
+            }
+        </script>
         <ul class="circles">
             <li></li>
             <li></li>
@@ -39,6 +156,7 @@
             <li></li>
         </ul>
         <div class="para">
+            <img src="images/logo3.png" alt="Logo" class="logo">
             <div class="heading">
                 <div class="row">
                     <div class="col-md-12 text-center">
@@ -47,7 +165,9 @@
                 </div>
             </div>
             <p style="font-size: 28px;">Connecting Ideas, Fostering Innovation</p>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+            <div class="sub">
+                <p>"At the heart of every great solution is a powerful idea"</p>
+            </div>
         </div>
         <div class="searchbar">
             <input type="text" placeholder="Search this Website">
@@ -61,44 +181,47 @@
     </header>
 
     <!-- about us section  -->
-    <section>
+    <section id="about_show">
         <div class="about show">
             <h2>About Us</h2>
         </div>
         <div class="about_para">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti amet praesentium saepe error pariatur,
-                quo
-                voluptates nam cum ipsum facilis qui deleniti aperiam. Architecto voluptatum quis dolores sunt quae
-                illo.
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Et tempora, tempore velit cupiditate
-                repellendus
-                ducimus porro tenetur veritatis rerum, in placeat temporibus corporis culpa dolorum aut accusantium
-                debitis
-                similique neque!
+            <p> <span>「</span>We believe that every groundbreaking innovation begins with the spark of a great idea. Our
+                mission is
+                to connect visionaries, thinkers, and creators, providing a dynamic platform where ideas can converge
+                and thrive. We foster collaboration across industries, transforming concepts into impactful innovations
+                that drive progress and shape the future.
+
+                Through our cutting-edge solutions and forward-thinking approach, we empower businesses and individuals
+                to push boundaries, explore new possibilities, and bring their ideas to life. With a commitment to
+                excellence and a passion for innovation, we are dedicated to building a brighter tomorrow — one idea at
+                a time.
+
+                Join us in shaping the future by turning inspiration into reality. <span>」</span>
             </p>
         </div>
         <!-- slider -->
         <div class="slider">
             <div class="list">
                 <div class="item">
-                    <img src="images/Design 1.png" alt="">
+                    <img src="images/Design 1.webp" alt="">
                 </div>
                 <div class="item">
-                    <img src="images/connect.png" alt="">
+                    <img src="images/connect.webp" alt="">
                 </div>
                 <div class="item">
-                    <img src="images/career_pic.jpg" alt="">
+                    <img src="images/career_pic.webp" alt="">
                 </div>
                 <div class="item">
-                    <img src="images/collaborate.jpg" alt="">
+                    <img src="images/collaborate.webp" alt="">
                 </div>
                 <div class="item">
-                    <img src="images/badges.png" alt="">
+                    <img src="images/badges.webp" alt="">
                 </div>
             </div>
             <div class="buttons">
-                <button id="prev"><</button>
-                <button id="next">></button>
+                <button id="prev" title="Previous" type="button"><i class="fa-solid fa-arrow-left"></i></button>
+                <button id="next" title="Next" type="button"><i class="fa-solid fa-arrow-right"></i></button>
             </div>
             <ul class="dots">
                 <li class="active"></li>
@@ -108,10 +231,10 @@
                 <li></li>
             </ul>
         </div>
-    </section>    
+    </section>
 
     <main>
-        <section class="section2">
+        <section id="register" class="section2">
             <h2>Register</h2>
             <div class="registration">
                 <div class="stu_reg">
@@ -126,13 +249,13 @@
                         to generate personalized research topic recommendations based on your academic interests,
                         department, and preferred difficulty level. This ensures that every step of your research
                         journey is curated to meet your specific needs and goals.</p>
-                    <a href="">Register<i class="fa-solid fa-right-to-bracket"
+                    <a href="/signup.html">Register<i class="fa-solid fa-right-to-bracket"
                             style="padding: 0px 0px 0px 12px;font-size:20px"></i></a>
                 </div>
                 <div class="stu_reg">
                     <i class="fa-sharp fa-solid fa-building-columns" style="font-size:80px"></i>
                     <h3>Stakeholders</h3>
-                    <p class="fadein_text">Welcome to Research Nexas, where stakeholders play a pivotal role in
+                    <p class="fadein_text shift">Welcome to Research Nexas, where stakeholders play a pivotal role in
                         shaping academic excellence. As a stakeholder, your registration on our platform is the key to
                         fostering transparency, collaboration, and the highest standards of education. By providing
                         essential details during the registration process, you are taking a significant step towards
@@ -140,7 +263,7 @@
                         as a stakeholder and become an integral part of the academic ecosystem. Register now to
                         contribute to the development of future researchers, uphold academic standards, and promote
                         collaboration within our dynamic community</p>
-                    <a href="">Register<i class="fa-solid fa-right-to-bracket"
+                    <a href="/stk_signup.html">Register<i class="fa-solid fa-right-to-bracket"
                             style="padding: 0px 0px 0px 12px;font-size:20px"></i></a>
                 </div>
             </div>
@@ -203,60 +326,53 @@
             </div>
         </section>
         <!-- boxes section  -->
-        <h3>Top Services</h3>
-        <div class="all-boxes">
-            <div class="box show hidden">
-                <h3>Plagiarism checker</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores mollitia dolor eveniet quos enim!
-                    Labore recusandae nihil, blanditiis officia cumque ullam odit, quo autem quos facilis, aspernatur
-                    minima
-                    mollitia possimus.</p>
+        <section id="services">
+            <h3>Top Services</h3>
+            <div class="all-boxes">
+                <div class="box show hidden">
+                    <h3>Plagiarism Checker</h3>
+                    <img src="images/plagiarism.webp" alt="Plagiarism Checker Icon"
+                        style="width:150; height: 150px; border-radius: 15px; border: 2px solid #ccc;">
+                    <p>
+                        Ensure your content is original with our advanced plagiarism detection tool, and receive
+                        detailed reports to uphold integrity in your writing.
+                    </p>
+                </div>
+                <div class="box show hidden">
+                    <h3>Explore Papers</h3>
+                    <img src="images/explorepapers.webp" alt="project"
+                        style="width:150; height: 150px; border-radius: 15px; border: 2px solid #ccc;">
+                    <p>Experience seamless research collaboration as students, stakeholders, and faculty connect easily.
+                        Turn submissions into impactful evaluations with a few clicks!
+                    </p>
+                </div>
+
+                <div class="box show hidden">
+                    <h3>Follow Groups</h3>
+                    <img src="images/follow.webp" alt="follow group"
+                        style="width:200; height: 150px; border-radius: 15px; border: 2px solid #ccc;">
+                    <p>Stay in the loop with your favorite research groups follow, engage, and collaborate on the topics
+                        that matter most.</p>
+                </div>
+                <div class="box show hidden">
+                    <h3>Boost Level</h3>
+                    <img src="images/boost.webp" alt="boost"
+                        style="width:150; height: 150px; border-radius: 15px; border: 2px solid #ccc;">
+                    <p>Amplify your academic reach boost your growth with a network that supports and inspires
+                        with powerful partnerships, transforming ideas into impactful research outcomes.
+                    </p>
+                </div>
+
+                <div class="box show hidden">
+                    <h3>Career Opportunities</h3>
+                    <img src="images/career.webp" alt="career"
+                        style="width:150; height: 150px; border-radius: 15px; border: 2px solid #ccc;">
+                    <p>Turn your academic achievements into career opportunities, opening doors to roles that match your
+                        expertise and aspirations.
+                    </p>
+                </div>
             </div>
-            <div class="box show hidden">
-                <h3>Explore Project</h3>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illum animi nulla dolorum, non quibusdam
-                    tenetur saepe cumque cum vero ipsa explicabo tempore voluptatum voluptatibus rerum ad quas
-                    asperiores
-                    exercitationem debitis.</p>
-            </div>
-            <div class="box show hidden">
-                <h3>Connect with peers</h3>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illum animi nulla dolorum, non quibusdam
-                    tenetur saepe cumque cum vero ipsa explicabo tempore voluptatum voluptatibus rerum ad quas
-                    asperiores
-                    exercitationem debitis.</p>
-            </div>
-            <div class="box show hidden">
-                <h3>Follow Groups</h3>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illum animi nulla dolorum, non quibusdam
-                    tenetur saepe cumque cum vero ipsa explicabo tempore voluptatum voluptatibus rerum ad quas
-                    asperiores
-                    exercitationem debitis.</p>
-            </div>
-            <div class="box show hidden">
-                <h3>Boost Level</h3>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illum animi nulla dolorum, non quibusdam
-                    tenetur saepe cumque cum vero ipsa explicabo tempore voluptatum voluptatibus rerum ad quas
-                    asperiores
-                    exercitationem debitis.</p>
-            </div>
-            <div class="box show hidden">
-                <h3>Redeem Badges</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta laborum, sequi culpa, harum delectus
-                    nobis
-                    distinctio quae ratione nesciunt tempore suscipit qui repellendus, sit itaque molestiae nostrum?
-                    Esse,
-                    vel in!</p>
-            </div>
-            <div class="box show hidden">
-                <h3>Career Opportunities</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta laborum, sequi culpa, harum delectus
-                    nobis
-                    distinctio quae ratione nesciunt tempore suscipit qui repellendus, sit itaque molestiae nostrum?
-                    Esse,
-                    vel in!</p>
-            </div>
-        </div>
+        </section>
     </main>
 
     <main>
@@ -265,31 +381,30 @@
             <h2>Why Join Us</h2>
             <div class="join_box">
                 <div class="join_boxes animated-box1 join_animation1">
-                    <img src="https://img.freepik.com/free-vector/flat-design-join-us-message_23-2148954904.jpg"
-                        alt="">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem at similique modi ut rerum numquam,
-                        nostrum assumenda dolorem. Commodi incidunt dolore tenetur voluptas delectus soluta. Tenetur,
-                        vel eum temporibus excepturi provident praesentium eveniet inventore enim vitae fuga animi
-                        similique eius doloremque quasi dolores nemo veniam deleniti, debitis rerum quos. Delectus eos
-                        porro earum expedita soluta illo aliquid distinctio.</p>
+                    <img src="https://img.freepik.com/free-vector/flat-design-join-us-message_23-2148954904.jpg" alt="">
+                    <p>"At Research Nexas", we believe in the power of collaboration to drive innovation. We're
+                        looking for bold thinkers and creators to join us in transforming ideas into real-world
+                        solutions.
+                        When you join us, you become part of a dynamic community that fosters creativity, growth, and
+                        impact. Together, we’ll push boundaries, explore new possibilities, and shape the future. Ready
+                        to make a difference? Let's innovate together.</p>
                 </div>
                 <div class="join_boxes" style="z-index: 1;">
                     <img src="https://t3.ftcdn.net/jpg/04/87/16/34/360_F_487163480_u4q13pQTIIbcVbolPiHKZFFlkfVrnVP3.jpg"
                         alt="">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem at similique modi ut rerum numquam,
-                        nostrum assumenda dolorem. Commodi incidunt dolore tenetur voluptas delectus soluta. Tenetur,
-                        vel eum temporibus excepturi provident praesentium eveniet inventore enim vitae fuga animi
-                        similique eius doloremque quasi dolores nemo veniam deleniti, debitis rerum quos. Delectus eos
-                        porro earum expedita soluta illo aliquid distinctio.</p>
+                    <p> we bring together innovators, creators, and visionaries to turn bold ideas into real-world
+                        solutions.By joining us, you’ll be part of a collaborative environment where your ideas can
+                        flourish and make a tangible impact. We offer the resources, network, and support to help you
+                        push boundaries and achieve your full potential. Together, we’ll drive innovation and shape the
+                        future of progress.</p>
                 </div>
                 <div class="join_boxes animated-box2 join_animation2">
-                    <img src="https://img.freepik.com/free-vector/flat-design-join-us-message_23-2148954904.jpg"
-                        alt="">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem at similique modi ut rerum numquam,
-                        nostrum assumenda dolorem. Commodi incidunt dolore tenetur voluptas delectus soluta. Tenetur,
-                        vel eum temporibus excepturi provident praesentium eveniet inventore enim vitae fuga animi
-                        similique eius doloremque quasi dolores nemo veniam deleniti, debitis rerum quos. Delectus eos
-                        porro earum expedita soluta illo aliquid distinctio.</p>
+                    <img src="https://img.freepik.com/free-vector/flat-design-join-us-message_23-2148954904.jpg" alt="">
+                    <p>Join and become part of a dynamic community that believes in the power of
+                        collaboration to foster innovation. Here, your creativity and ideas are valued, and you’ll work
+                        alongside talented professionals to transform concepts into impactful solutions. If you're ready
+                        to explore new possibilities, grow your skills, and make a difference, this is the place for
+                        you. Together, let’s innovate and build a better tomorrow.</p>
                 </div>
             </div>
         </section>
@@ -298,90 +413,414 @@
             <h2>Premiums</h2>
             <div class="premium_head_box">
                 <div class="premium-boxes premium_animation1">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum esse maiores, impedit eaque
-                        autem nemo voluptatibus suscipit adipisci debitis animi ab, delectus quis nam perspiciatis
-                        earum, eius et nulla natus.</p>
+                    <p>
+                        Unlock a world of advanced resources designed to bring your ideas to life. Our premium members
+                        gain access to state-of-the-art tools, expert insights, and industry-leading technology to
+                        accelerate their innovation journey. Whether you're refining concepts or launching
+                        groundbreaking solutions, our exclusive tools give you the competitive edge..</p>
                 </div>
                 <div class="premium-boxes">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum esse maiores, impedit eaque
-                        autem nemo voluptatibus suscipit adipisci debitis animi ab, delectus quis nam perspiciatis
-                        earum, eius et nulla natus.</p>
+                    <p>Personalized Innovation Support
+                        As a premium member, you’ll benefit from tailored guidance every step of the way. Our dedicated
+                        team of experts provides one-on-one consultations, helping you navigate challenges and maximize
+                        your potential. Get personalized advice on your projects, and leverage our deep industry
+                        expertise to turn your vision into reality.</p>
                 </div>
                 <div class="premium-boxes premium_animation2">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum esse maiores, impedit eaque
-                        autem nemo voluptatibus suscipit adipisci debitis animi ab, delectus quis nam perspiciatis
-                        earum, eius et nulla natus.</p>
+                    <p>
+                        Gain priority access to exclusive events, workshops, and networking opportunities with leaders
+                        in the field. Our premium membership connects you with a vibrant community of like-minded
+                        innovators and industry experts. Expand your network, collaborate on exciting projects, and open
+                        doors to new possibilities that drive your success.</p>
                 </div>
             </div>
         </section>
+        <style>
+            /* General styling */
+
+            section.premium {
+                padding: 50px 20px;
+                background: linear-gradient(135deg, #ffe6f7, #e1e6ff);
+                border-radius: 10px;
+                box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+                text-align: center;
+            }
+
+            .premium h2 {
+                text-decoration: dashed;
+                font-size: 4rem;
+                color: #5a4279;
+            }
+
+            .premium_head_box {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .premium-boxes {
+                height: 400px;
+                padding: 20px;
+                background: linear-gradient(135deg, #d4e0ff, #ffdbf5);
+                border-radius: 10px;
+                box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+                color: #444;
+                font-size: 0.5rem;
+                transition: transform 0.3s, box-shadow 0.3s;
+            }
+
+            /* Hover effects for cards */
+            .premium-boxes:hover {
+                transform: translateY(-10px);
+                box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2);
+            }
+
+            /* Responsive styling */
+            @media (min-width: 768px) {
+                .premium_head_box {
+                    flex-direction: row;
+                    gap: 30px;
+                }
+            }
+        </style>
+
     </main>
 
-    <!-- student section  -->
+
+
+
+
+
+
+    <!-- Researchers Section -->
     <section class="section4">
-        <h2>Students Section</h2>
+        <h2 class="section-title">OUR TOP RESEARCHERS</h2>
+        <p style="font-family: cursive; font-weight: 400; font-size: 18px; margin-bottom: 40px;">Discover the
+            cutting-edge research and innovations led by our top researchers. Their work is shaping
+            the
+            future across a diverse range of fields.</p>
         <div class="img_container">
-            <div class="image_boxes img_animation1">
-                <img src="https://learnenglishteens.britishcouncil.org/sites/teens/files/styles/max_325x325/public/field/image/RS9396_GettyImages-509849267-hig.jpg?itok=0eBxajVO"
-                    alt="">
-            </div>
-            <div class="image_boxes img_animation2">
-                <img src="https://learnenglishteens.britishcouncil.org/sites/teens/files/styles/max_325x325/public/field/image/RS9396_GettyImages-509849267-hig.jpg?itok=0eBxajVO"
-                    alt="">
+            <div class="image_boxes">
+
+                <div class="overlay">
+                    <div class="text">"Exploring the future of artificial intelligence."</div>
+                </div>
+                <div class="details">
+                    <h3>Dr. Shenzi Shuok</h3>
+
+
+                    <p class="para1">Dr. Shuok leads groundbreaking research in artificial intelligence and machine
+                        learning. Their
+                        work
+                        has significantly contributed to the development of autonomous systems.</p>
+
+                    <p class="para2"><span style="font-size: 20px; font-weight: 900;">Fields:</span> AI, Machine
+                        Learning, and Robotics.</p>
+                </div>
             </div>
             <div class="image_boxes">
-                <img src="https://learnenglishteens.britishcouncil.org/sites/teens/files/styles/max_325x325/public/field/image/RS9396_GettyImages-509849267-hig.jpg?itok=0eBxajVO"
-                    alt="">
+
+                <div class="overlay">
+                    <div class="text">"Art is not just a subject, it’s a form of expression."</div>
+                </div>
+                <div class="details">
+                    <h3>Dr. Julet Dauk</h3>
+
+                    <p class="para1">An expert in digital humanities, Dr. Dauk explores the intersection of technology
+                        and visual
+                        arts.
+                        Their research focuses on how digital tools are reshaping artistic expression.</p>
+
+                    <p class="para2"><span style="font-size: 20px; font-weight: 900;">Fields:</span> Digital Art, Media
+                        Studies, and Visual Design.</p>
+                </div>
             </div>
-            <div class="image_boxes img_animation3">
-                <img src="https://images.template.net/wp-content/uploads/2015/05/Easy-Backgrounds-With-Customizable-Scroll-Speed-58-788x522.jpg"
-                    alt="">
+            <div class="image_boxes">
+
+                <div class="overlay">
+                    <div class="text">"Empowering communities through innovation."</div>
+                </div>
+                <div class="details">
+                    <h3>Dr. Andrew Wadsun</h3>
+
+                    <p class="para1">Dr. Wadsun's research focuses on sustainable technologies that benefit underserved
+                        communities.
+                        Their
+                        initiatives aim to create impactful solutions for social justice and environmental preservation.
+                    </p>
+
+                    <p class="para2"><span style="font-size: 20px; font-weight: 900;">Fields:</span> Social Innovation,
+                        Sustainability, and Environmental Science.</p>
+                </div>
             </div>
-            <div class="image_boxes  img_animation4">
-                <img src="https://images.template.net/wp-content/uploads/2015/05/Easy-Backgrounds-With-Customizable-Scroll-Speed-58-788x522.jpg"
-                    alt="">
+            <div class="image_boxes">
+
+                <div class="overlay">
+                    <div class="text">"Conserving nature through science."</div>
+                </div>
+                <div class="hover">
+                    <div class="details">
+                        <h3>Dr. Melin Parkins</h3>
+
+                        <p class="para1">Dr. Parkins is dedicated to environmental conservation, specializing in
+                            ecosystem restoration and
+                            biodiversity protection. Their research focuses on solutions for climate change.</p>
+
+                        <p class="para2"><span style="font-size: 20px; font-weight: 900;">Fields:</span> Ecology,
+                            Conservation Science, and Climate Change.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="image_boxes">
+
+                <div class="overlay">
+                    <div class="text">"Innovation in sports science."</div>
+                </div>
+                <div class="details">
+                    <h3>Dr. Elon Burg</h3>
+
+                    <p class="para1">Dr. Burg is a leading researcher in sports science, specializing in performance
+                        optimization and
+                        injury prevention. Their work combines physiology and biomechanics for athletic excellence.</p>
+
+                    <p class="para2"><span style="font-size: 20px; font-weight: 900;">Fields:</span> Sports Science,
+                        Physiology, and Biomechanics.</p>
+                </div>
+            </div>
+            <div class="image_boxes">
+
+                <div class="overlay">
+                    <div class="text">"Music and neuroscience in harmony."</div>
+                </div>
+                <div class="details">
+                    <h3>Dr. Sarah Lee</h3>
+
+                    <p class="para1">A renowned expert in music therapy, Dr. Lee researches how music impacts brain
+                        development and
+                        emotional well-being. Their work bridges the gap between art and neuroscience.</p>
+
+                    <p class="para2"><span style="font-size: 20px; font-weight: 900;">Fields:</span> Music Therapy,
+                        Neuroscience, and Cognitive Science.</p>
+                </div>
+            </div>
+            <div class="image_boxes">
+
+                <div class="overlay">
+                    <div class="text">"Pioneering tech innovations."</div>
+                </div>
+                <div class="details">
+                    <h3>Dr. Michael Adams</h3>
+
+                    <p class="para1">A leading figure in technology, Dr. Adams is known for his research in robotics and
+                        AI. His
+                        contributions have pushed the boundaries of what machines can achieve.</p>
+
+                    <p class="para2"><span style="font-size: 20px; font-weight: 900;">Fields:</span> Robotics, AI
+                        Development, and Tech Innovation.</p>
+                </div>
             </div>
         </div>
-        <div class="stu_section">
-            <div class="stu_para">
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ea saepe incidunt vel eum aliquam dolor, ab
-                    eveniet dicta repudiandae odit? Ea commodi, beatae similique facilis perferendis perspiciatis iste
-                    aspernatur iure?
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, sapiente laudantium harum
-                    quisquam eum officiis quasi provident error iste, ipsam culpa quidem amet! Cupiditate quibusdam quos
-                    facere ullam impedit vero.</p>
+        <div class="research_section">
+            <div class="research_para">
+
+
+
             </div>
-            <div>
-                <a href=""><button>Explore<i class="fa-solid fa-arrow-right"
-                            style="font-size: 18px;padding: 0px 12px 0px 18px;"></i></button></a>
-            </div>
-        </div>
-        <h2 style="padding: 20px 0px;word-wrap: break-word;">Stakeholders</h2>
-        <div class="stk_section">
-            <div class="stk_section_para">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic sapiente neque nihil. Dolorum adipisci
-                    nesciunt veritatis nam mollitia pariatur, totam in asperiores excepturi architecto quos facere, quae
-                    modi odit quas praesentium consequuntur corporis nemo! Assumenda, distinctio vel! Iste cumque
-                    eligendi dolorem. Ipsam ratione vel laboriosam, molestiae inventore voluptatem repudiandae voluptate
-                    similique obcaecati repellendus fugiat?</p>
-                <a href=""><button>Explore<i class="fa-solid fa-arrow-right"
-                            style="font-size: 18px;padding: 0px 12px 0px 18px;"></i></button></a>
-            </div>
-            <div class="last_img">
-                <div class="last_img_boxes last_img_animation1">
-                    <img src="https://shutterstock.com/image-photo/mountains-under-mist-morning-amazing-260nw-1725825019.jpg"
-                        alt="">
-                </div>
-                <div class="last_img_boxes">
-                    <img src="https://shutterstock.com/image-photo/mountains-under-mist-morning-amazing-260nw-1725825019.jpg"
-                        alt="">
-                </div>
-                <div class="last_img_boxes last_img_animation2">
-                    <img src="https://shutterstock.com/image-photo/mountains-under-mist-morning-amazing-260nw-1725825019.jpg"
-                        alt="">
-                </div>
-            </div>
+            <button class="explore-btn">Explore More</button>
         </div>
     </section>
+
+
+
+    <!-- Professional Stakeholder Section Starts Here -->
+    <section class="stakeholder-section">
+        <div class="block">
+
+
+            <h2 class="section-title">OUR RESEARCH PAPERS</h2>
+            <p class="section-description">Our stakeholders are the driving force behind our success. Their dedication,
+                expertise, and vision have helped shape our journey.</p>
+            <div class="stakeholder-grid">
+
+
+                <div class="research-paper-card">
+
+                    <div class="paper-info">
+
+                        <h3>Advancements in Artificial Intelligence</h3>
+
+                        <h6>By Dr. James Lee</h6>
+                        <p>This paper explores the latest breakthroughs in AI, with a focus on machine learning
+                            algorithms that improve efficiency in autonomous systems.</p>
+                        <button class="read-more">Read Abstract</button>
+                    </div>
+                </div>
+
+
+                <!-- Research Paper 1 -->
+                <div class="research-paper-card">
+
+                    <div class="paper-info">
+                        <h3>Advancements in Artificial Intelligence</h3>
+
+                        <h6>By Dr. James Lee</h6>
+                        <p>This paper explores the latest breakthroughs in AI, with a focus on machine learning
+                            algorithms that improve efficiency in autonomous systems.</p>
+                        <button class="read-more">Read Abstract</button>
+                    </div>
+                </div>
+
+                <!-- Research Paper 1 -->
+                <div class="research-paper-card">
+
+                    <div class="paper-info">
+                        <h3>Advancements in Artificial Intelligence</h3>
+
+                        <h6>By Dr. James Lee</h6>
+                        <p>This paper explores the latest breakthroughs in AI, with a focus on machine learning
+                            algorithms that improve efficiency in autonomous systems.</p>
+                        <button class="read-more">Read Abstract</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section id="faq_sec">
+            <div class="wrapper">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+
+                <!-- Search Bar -->
+                <div class="search-container">
+                    <input type="text" id="faqSearch" placeholder="Search FAQs..." oninput="filterFAQs()">
+                </div>
+
+                <div class="faq">
+                    <button class="accordion">
+                        What is Research-Nexas?
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="pannel">
+                        <p>
+                            Research-Nexas is a cutting-edge web application designed to create a seamless connection
+                            between students, researchers, and stakeholders within a collaborative research ecosystem.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq">
+                    <button class="accordion">
+                        How does it work?
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="pannel">
+                        <p>
+                            The platform empowers students to log in, upload their research papers, view their uploads,
+                            and track their evaluations. Stakeholders act as research supervisors who can approve
+                            student
+                            submissions and assign papers to the appropriate faculty members for evaluation. Faculty
+                            members,
+                            in turn, can review the assigned papers, provide ratings, and evaluate results based on
+                            predefined criteria.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq">
+                    <button class="accordion">
+                        Want to know more about the project?
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="pannel">
+                        <p>
+                            Click on this link: <a href="https://github.com/Harshdev098/Research-Nexas" rel="noopener"
+                                alt="Github" target="_blank">Research-Nexas</a>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq">
+                    <button class="accordion">
+                        Want to contribute to the project?
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="pannel">
+                        <p>
+                            Read our guidelines for contribution: <a
+                                href="https://github.com/Harshdev098/Research-Nexas/blob/main/Contributing.md"
+                                rel="noopener" alt="Github" target="_blank">Contributing Guidelines</a>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script>
+            function filterFAQs() {
+                const searchInput = document.getElementById('faqSearch').value.toLowerCase();
+                const faqs = document.querySelectorAll('.faq');
+
+                faqs.forEach(faq => {
+                    const accordionText = faq.querySelector('.accordion').innerText.toLowerCase();
+                    const pannelText = faq.querySelector('.pannel p').innerText.toLowerCase();
+                    const contentMatch = accordionText.includes(searchInput) || pannelText.includes(searchInput);
+
+                    faq.style.display = contentMatch ? 'block' : 'none';
+
+                    if (contentMatch && searchInput) {
+
+                        const pannel = faq.querySelector('.pannel');
+                        pannel.style.display = 'block';
+                        highlightKeywords(faq, searchInput);
+                    } else {
+                        const pannel = faq.querySelector('.pannel');
+                        pannel.style.display = 'none'; // Hide pannel if there's no match
+                        removeHighlights(faq);
+                    }
+                });
+            }
+
+            function highlightKeywords(faq, keyword) {
+                const regex = new RegExp(`(${keyword})`, 'gi');
+
+                const accordion = faq.querySelector('.accordion');
+                accordion.innerHTML = accordion.textContent.replace(regex, '<span class="highlight">$1</span>');
+
+                const pannel = faq.querySelector('.pannel p');
+                pannel.innerHTML = pannel.textContent.replace(regex, '<span class="highlight">$1</span>');
+            }
+
+            function removeHighlights(faq) {
+                const accordion = faq.querySelector('.accordion');
+                accordion.innerHTML = accordion.textContent;
+
+                const pannel = faq.querySelector('.pannel p');
+                pannel.innerHTML = pannel.textContent;
+            }
+
+            // Accordion toggle functionality
+            document.querySelectorAll('.accordion').forEach(accordion => {
+                accordion.addEventListener('click', function () {
+                    this.classList.toggle("active");
+                    const pannel = this.nextElementSibling;
+
+                    if (pannel.style.display === "block") {
+                        pannel.style.display = "none";
+                    } else {
+                        pannel.style.display = "block";
+                    }
+                });
+            });
+        </script>
+    </section>
+
+
+
+
+
+
+
+
+
+
 
     <!-- footer section -->
 
@@ -391,16 +830,17 @@
                 <div class="footer-col">
                     <h4>company</h4>
                     <ul>
-                        <li><a href="#">about us</a></li>
-                        <li><a href="#">our services</a></li>
-                        <li><a href="#">privacy policy</a></li>
-                        <li><a href="#">affiliate program</a></li>
+                        <li><a href="#about_show">about us</a></li>
+                        <li><a href="/contributor.html">our contributors</a></li>
+                        <li><a href="#services">our services</a></li>
+                        <li><a href="/privacy_policy.html">privacy policy</a></li>
+                        <li><a href="/affiliate_program.html">affiliate program</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
                     <h4>get help</h4>
                     <ul>
-                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#faq_sec">FAQ</a></li>
                         <li><a href="#">shipping</a></li>
                         <li><a href="#">returns</a></li>
                         <li><a href="#">order status</a></li>
@@ -417,19 +857,254 @@
                     </ul>
                 </div>
                 <div class="footer-col">
-                    <h4>follow us</h4>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <h4 id="custom-follow-heading">Follow Us</h4>
+
+                    <div class="custom-social-links1">
+                        <div class="custom-social-links">
+                            <a href="https://facebook.com" id="custom-facebook-icon"><i
+                                    class="fab fa-facebook-f"></i></a>
+                            <a href="https://x.com" id="custom-twitter-icon"><i class="fab fa-twitter"></i></a>
+                        </div>
+                        <div class="custom-social-links"><a href="https://instagram.com" id="custom-instagram-icon"><i
+                                    class="fab fa-instagram"></i></a>
+                            <a href="https://linkedin.com" id="custom-linkedin-icon"><i
+                                    class="fab fa-linkedin-in"></i></a>
+                        </div>
                     </div>
                 </div>
+
+
+                <div class="footer-section contact-form">
+                    <h2>Feedback Form</h2>
+                    <form id="feedback-form" action="#" method="post" onsubmit="handleSubmit(event)">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" class="text-input contact-input"
+                            placeholder="Your email address..." required>
+
+                        <label for="message">Message:</label>
+                        <textarea id="message" name="message" class="text-input contact-input"
+                            placeholder="Your message..." required></textarea>
+
+
+                        <!-- Star Rating Section -->
+                        <div class="star-rating" aria-label="Rating" role="radiogroup">
+                            <input type="radio" id="star5" name="rating" value="5" required>
+                            <label for="star5" title="5 stars">★</label>
+                            <input type="radio" id="star4" name="rating" value="4">
+                            <label for="star4" title="4 stars">★</label>
+                            <input type="radio" id="star3" name="rating" value="3">
+                            <label for="star3" title="3 stars">★</label>
+                            <input type="radio" id="star2" name="rating" value="2">
+                            <label for="star2" title="2 stars">★</label>
+                            <input type="radio" id="star1" name="rating" value="1">
+                            <label for="star1" title="1 star">★</label>
+                        </div>
+
+                        <button type="submit" class="btn btn-big contact-btn">
+                            <i class="fas fa-envelope"></i>
+                            Send
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Popup -->
+                <div id="thank-you-popup" class="popupp" style="display:none;">
+                    <div class="popupp-content">
+                        <span class="close" onclick="closePopup()">&times;</span>
+                        <h2>🎉 Thank You! 👏</h2> <!-- Added emoji here -->
+                        <p>Your feedback has been submitted successfully.</p>
+                        <button class="ok-button" onclick="closePopup()">OK</button>
+                    </div>
+                </div>
+
+
+                <script>// Facebook click event
+                    document.getElementById("custom-facebook-icon").addEventListener("click", function () {
+                        this.querySelector("i").style.color = "#1877F2"; // Facebook blue after click
+                    });
+
+                    // Twitter click event
+                    document.getElementById("custom-twitter-icon").addEventListener("click", function () {
+                        this.querySelector("i").style.color = "#1DA1F2"; // Twitter blue after click
+                    });
+
+                    // Instagram click event
+                    document.getElementById("custom-instagram-icon").addEventListener("click", function () {
+                        this.querySelector("i").style.color = "#E1306C"; // Instagram brand color after click
+                    });
+
+                    // LinkedIn click event
+                    document.getElementById("custom-linkedin-icon").addEventListener("click", function () {
+                        this.querySelector("i").style.color = "#0A66C2"; // LinkedIn blue after click
+                    });
+
+                </script>
             </div>
         </div>
     </footer>
+    <button id="scrollToTopBtn" class="scroll-top" aria-label="Scroll to top" style="bottom: 72px;">
+        <div class="scroll-top-icon">
+            <i class="fa-solid fa-arrow-up"></i>
+        </div>
+        <svg class="progress-ring" width="60" height="60">
+            <circle class="progress-ring__circle" stroke="#ffffff" stroke-width="4" fill="transparent" r="28" cx="30"
+                cy="30"></circle>
+        </svg>
+    </button>
+    <script>
+        // Get the button
+        const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+        const progressCircle = document.querySelector(".progress-ring__circle");
+        const radius = progressCircle.r.baseVal.value;
+        const circumference = 2 * Math.PI * radius;
+
+        // Set the circle progress properties
+        progressCircle.style.strokeDasharray = `${circumference} ${circumference}`;
+        progressCircle.style.strokeDashoffset = circumference;
+
+        // Function to show or hide the button based on scroll position
+        function toggleScrollButton() {
+            if (window.scrollY > 100) {
+                scrollToTopBtn.classList.add("show");
+            } else {
+                scrollToTopBtn.classList.remove("show");
+            }
+        }
+
+        // Function to set the scroll progress on the button ring
+        function setProgress(percent) {
+            const offset = circumference - (percent / 100) * circumference;
+            progressCircle.style.strokeDashoffset = offset;
+        }
+
+        // Listen for scroll events to update button visibility and progress
+        window.addEventListener("scroll", () => {
+            toggleScrollButton();
+            const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            setProgress(scrollPercent);
+        });
+
+        // Smooth scroll to top when the button is clicked
+        scrollToTopBtn.addEventListener("click", () => {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
+
+    </script>
+
     <script src="script/script.js"></script>
     <script src="script/slider.js"></script>
+
+    <script>
+        // Adding background color to the header on scroll
+        window.onscroll = function () {
+            var navbar = document.querySelector(".navbar");
+            if (window.scrollY > 50) {
+                navbar.style.backgroundColor = "rgba(0, 0, 0, 0.8)"; // Dark background on scroll
+                navbar.querySelectorAll("a").forEach(a => a.style.color = "white"); // Change link color
+            } else {
+                navbar.style.backgroundColor = "transparent"; // Revert back to transparent background
+                navbar.querySelectorAll("a").forEach(a => a.style.color = "white"); // Revert link color
+            }
+        };
+    </script>
+    <script>
+        window.embeddedChatbotConfig = {
+            chatbotId: "iSwsMwg5TfWCzADbpz05-",
+            domain: "www.chatbase.co"
+        }
+    </script>
+    <script src="https://www.chatbase.co/embed.min.js" chatbotId="iSwsMwg5TfWCzADbpz05-" domain="www.chatbase.co" defer>
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const coords = { x: 0, y: 0 };
+            const circles = document.querySelectorAll(".circle");
+
+            circles.forEach(function (circle) {
+                circle.x = 0;
+                circle.y = 0;
+            });
+
+            window.addEventListener("mousemove", function (e) {
+                coords.x = e.pageX;
+                coords.y = e.pageY - window.scrollY; // Adjust for vertical scroll position
+            });
+
+            function animateCircles() {
+                let x = coords.x;
+                let y = coords.y;
+
+                circles.forEach(function (circle, index) {
+                    circle.style.left = `${x - 12}px`;
+                    circle.style.top = `${y - 12}px`;
+                    circle.style.transform = `scale(${(circles.length - index) / circles.length})`;
+
+                    const nextCircle = circles[index + 1] || circles[0];
+                    circle.x = x;
+                    circle.y = y;
+
+                    x += (nextCircle.x - x) * 0.3;
+                    y += (nextCircle.y - y) * 0.3;
+                });
+
+                requestAnimationFrame(animateCircles);
+            }
+
+            animateCircles();
+        });
+
+    </script>
+
+
+    <div id="popup-nl" class="popup-nl">
+        <div class="popup-content-nl">
+            <div class="popup-left-nl">
+                <img src="images/popup.jpg" alt="finance">
+            </div>
+
+            <div class="popup-right-nl">
+                <a href="# " class="close1-btn-nl close-nl">X</a>
+                <h1>Subscribe to Newsletter</h1>
+                <h2 class="h2-nl">Join Our Community of Researchers!</h2>
+                <p class="pop_up-nl">Subscribe to receive a curated selection of the regular updates, latest papers,
+                    articles, and insights directly to your inbox</p>
+                <form id="emailForm-nl">
+                    <input type="email" id="email-nl" placeholder="Enter your email" required>
+                    <button type="submit" class="signup-btn1-nl">Subscribe</button>
+                </form>
+                <a href="#" class="no-thanks-nl close-nl">No thanks</a>
+                <p class="terms-nl" style="white-space: nowrap;">By subscribing to newsletters, you agree to our <br><a
+                        href="terms&cond.html">Terms of Service</a> and <a href="privacynotice.html">Privacy Policy</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+    <script src="script/popup.js"></script>
+
+    <div class="popup" id="pollPopup">
+        <div class="popup-content">
+            <h2>What feature of Research-Nexas do you find most valuable?</h2>
+            <div id="pollOptions">
+                <button class="poll-button" data-value="Easy Paper Upload and Tracking">Easy Paper Upload and
+                    Tracking</button>
+                <button class="poll-button" data-value="Supervisor Approval Process">Supervisor Approval
+                    Process</button>
+                <button class="poll-button" data-value="Faculty Evaluation and Feedback">Faculty Evaluation and
+                    Feedback</button>
+            </div>
+            <button id="voteButton" class="vote-button" style="margin-top: 10px;">Vote</button>
+            <p id="result"></p>
+        </div>
+    </div>
+
+    <script src="script/popup.js"></script>
+
+    <script src="script/scripts.js"></script> <!-- Link to your service worker registration script -->
+
 </body>
 
 </html>

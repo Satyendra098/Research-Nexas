@@ -5,13 +5,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/login_style.css">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="images/Research_Nexas_favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/Research_Nexas_favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/Research_Nexas_favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="images/Research_Nexas_favicon_io/site.webmanifest">
+    
     <title>Login</title>
 </head>
 
-<body>
+<body> 
+    
+    <script>
+      window.gtranslateSettings = {
+        default_language: "en",
+        detect_browser_language: true,
+        wrapper_selector: ".gtranslate_wrapper",
+        font_size: 100,
+      };
+    </script>
+    <script
+    src="https://cdn.gtranslate.net/widgets/latest/popup.js"
+    defer
+  ></script>
+  
+    <img src="images/moon.webp" id="icon">
     <div class="container">
         <div class="image">
-            <img src="images/logo.png" alt="">
+            <img src="images/logo1.png" alt="">
         </div>
         <div id="box2">
             <p>Sorry! User not found</p>
@@ -29,11 +50,17 @@
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" placeholder="Enter your email" required>
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password" placeholder="Enter your password" required>
-                <a href="">Forgot Password?</a>
+                <div class="password-container">
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                    <span id="toggle-password">
+                        <img src="images/eye-closed.png" id="eye-icon" alt="Show/Hide Password" style="cursor: pointer;">
+                    </span>
+                </div>
+                <a href="password_reset.html">Forgot Password?</a>
                 <button type="button" onclick="login()">Login</button>
                 <div class="register">
                     <p style="display: inline;">Haven't Register?&nbsp;</p><a href="signup.html">Register Now</a>
+                    <div class="gtranslate_wrapper"></div>
                 </div>
             </form>
         </div>
@@ -43,16 +70,55 @@
     </div>
 
     <script>
+        var icon =document.getElementById("icon");
+        icon.onclick = function(){
+            document.body.classList.toggle("dark-theme");
+            if(document.body.classList.contains("dark-theme")){
+                icon.src="images/sun.png";
+            }
+            else{
+                icon.src="images/moon.png";
+            }
+        }
+
+        function isValidEmail(email) {
+            // List of allowed domains
+            const allowedDomains = ["gmail.com", "outlook.com", "yahoo.com", "protonmail.com", "icloud.com", "tutanota.com"];
+            const domain = email.split('@')[1];
+            return allowedDomains.includes(domain);
+        }
+
+        const togglePassword = document.getElementById('toggle-password');
+        const passwordInput = document.getElementById('password');
+        const eyeIcon = document.getElementById('eye-icon');
+
+        togglePassword.onclick = function () {
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.src = 'images/eye-open.png';
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.src = 'images/eye-closed.png'; 
+            }
+        }
+
+
         async function login() {
             let email = document.getElementById("email").value;
             let password = document.getElementById("password").value;
-            const result1 = document.getElementById('box1')
-            const result2 = document.getElementById('box2')
-            const result3 = document.getElementById('box3')
-            const result4 = document.getElementById('box4')
+            const result1 = document.getElementById('box1');
+            const result2 = document.getElementById('box2');
+            const result3 = document.getElementById('box3');
+            const result4 = document.getElementById('box4');
+
+            // Validate email domain
+            if (!isValidEmail(email)) {
+                alert('Please use a valid email from Gmail, Outlook, or other reputable providers.');
+                return;
+            }
 
             try {
-                const response = await fetch('http://localhost:3000/login', {
+                const response = await fetch('/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -60,50 +126,49 @@
                     body: JSON.stringify({ email, password }),
                 });
 
-
                 if (response.status === 200) {
-                    const result1 = document.getElementById('box1');
                     console.log('Login successful');
                     const result = await response.json();
                     const token = result.accessToken;
-                    console.log(token)
                     localStorage.setItem('accessToken', token);
                     result1.style.display = 'block';
                     setTimeout(() => {
                         window.location.href = 'form_filling.html';
                     }, 2000);
                 }
-                else if(response.status==401){
+                else if (response.status == 401) {
                     result4.style.display = 'block';
-                    document.getElementById('email').value = ''
-                    document.getElementById('password').value = ''
+                    document.getElementById('email').value = '';
+                    document.getElementById('password').value = '';
                     setTimeout(() => {
                         result4.style.display = 'none';
-                    }, 2000)
+                    }, 2000);
                 } 
                 else if (response.status === 404) {
                     result2.style.display = 'block';
                     console.log('User not found');
-                    document.getElementById('email').value = ''
-                    document.getElementById('password').value = ''
+                    document.getElementById('email').value = '';
+                    document.getElementById('password').value = '';
                     setTimeout(() => {
                         result2.style.display = 'none';
-                    }, 2000)
+                    }, 2000);
                 } else {
                     const errorMessage = await response.text();
                     console.log(`Login failed: ${errorMessage}`);
                     result3.style.display = 'block';
-                    email = ''
-                    password = ''
+                    email = '';
+                    password = '';
                     setTimeout(() => {
                         result3.style.display = 'none';
-                    }, 2000)
+                    }, 2000);
                 }
             } catch (error) {
                 console.error('Error during login:', error);
             }
         }
     </script>
+
+
 </body>
 
 </html>

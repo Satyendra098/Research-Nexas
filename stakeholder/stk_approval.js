@@ -5,20 +5,7 @@ const { decodeAccessToken } = require('../login-system/token')
 const notify = require('../login-system/notification')
 
 require("dotenv").config()
-const DB_HOST = process.env.DB_HOST
-const DB_USER = process.env.DB_USER
-const DB_PASSWORD = process.env.DB_PASSWORD
-const DB_DATABASE = process.env.DB_DATABASE
-const DB_PORT = process.env.DB_PORT
-
-const db = mysql.createPool({
-    connectionLimit: 100,
-    host: DB_HOST,
-    user: DB_USER,
-    password: DB_PASSWORD,
-    database: DB_DATABASE,
-    port: DB_PORT
-})
+const  db  = require('../config/mysql_connection')
 
 // sending the uloaded files of student to the stakeholders 
 const uploadedpapers = async (req, res) => {
@@ -82,11 +69,12 @@ const displaydetail = async (req, res) => {
                         }
                         if (result != 0) {
                             const filepath = result[0].filepath
+                            const filename = result[0].filename
                             const name = result[0].name
                             const email = result[0].email
                             const col_name = result[0].col_name
                             const sno = result[0].sno;
-                            res.json({ filepath, name, email, col_name, sno })
+                            res.json({ filepath, filename, name, email, col_name, sno })
                         }
                     })
                 });

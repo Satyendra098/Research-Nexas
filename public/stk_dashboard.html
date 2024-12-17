@@ -10,6 +10,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="images/Research_Nexas_favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/Research_Nexas_favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/Research_Nexas_favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="images/Research_Nexas_favicon_io/site.webmanifest">
+    
     <style>
         body {
             background-color: rgb(238, 236, 236);
@@ -41,7 +47,24 @@
             width: 20vw;
             display: block;
         }
-
+        #box1 {
+            width: 100%;
+            max-width: 500px;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 20px;
+            position: absolute;
+            top: -5%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        #box1 {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: none;
+        }
         section {
             margin: 0vh 10vw;
             background-color: white;
@@ -58,7 +81,7 @@
         }
 
         section strong {
-            color: rgb(193, 15, 15);
+            color: rgb(84, 44, 230);
             word-wrap: break-word;
         }
 
@@ -86,17 +109,54 @@
         .card-body h4 {
             padding: 8px 0px;
         }
+
+        body.dark-mode {
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        header.dark-mode {
+            background-color: #1f1f1f;
+        }
+
+        section.dark-mode {
+            background-color: #2c2c2c;
+        }
+
+        .card.dark-mode {
+            background-color: #3a3a3a;
+            color: #ffffff;
+        }
+
+        .card.dark-mode .btn-link {
+            color: #ffffff;
+        }
+
+        .card-body.dark-mode strong {
+            color: rgb(193, 15, 15);
+        }
+
+        body {
+            position: relative;
+        }
     </style>
 </head>
 
 <body>
     <header>
+        <div class="dark-mode-toggle" style="cursor: pointer; position: absolute; bottom: 10px; right: 10px;">
+            <i id="darkModeIcon" class="fa-solid fa-moon"
+                style="color: white; font-size: 26px;margin:3px;padding:6px;"></i>
+        </div>
+
         <div class="image">
             <i class="fa-solid fa-user"
                 style="width: 100%;color: white;display: block;font-size: 14vw;padding: 20px;"></i>
+
         </div>
         <div>
             <p>Hii...<strong id="email">harshoxfordgkp@gmail.com</strong></p>
+
         </div>
     </header>
     <section>
@@ -167,13 +227,35 @@
                 </div>
                 <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                     <div class="card-body">
-                        <button>Log Out<i class="fa-regular fa-right-from-bracket"
+                        <button id="logoutBtn">Log Out<i class="fa-regular fa-right-from-bracket"
                                 style="padding: 5px 8px 5px 10px;"></i></button>
                     </div>
                 </div>
             </div>
         </div>
+        <div id="box1">
+            <p>Logout Successfully...</p>
+        </div>
     </section>
+
+    <div style="position: absolute; top: 30px; left: 30px;" class="gtranslate_wrapper"></div>
+    <script>
+        const token = localStorage.getItem('accessToken');
+        if (!token) {
+            window.location.href = '/';
+        }
+       window.gtranslateSettings = {
+         default_language: "en",
+         detect_browser_language: true,
+         wrapper_selector: ".gtranslate_wrapper",
+         font_size: 100,
+       };
+     </script>
+     <script
+     src="https://cdn.gtranslate.net/widgets/latest/popup.js"
+     defer
+   ></script>
+
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
@@ -181,6 +263,39 @@
         integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
         crossorigin="anonymous"></script>
     <script>
+        const handleLogout = () => {
+            const result1 = document.getElementById('box1');
+            result1.style.display = 'block';
+            localStorage.removeItem("accessToken");
+            console.log("logout");
+            setTimeout(() => {
+                        window.location.href = 'index.html';
+            }, 2000)
+
+        };
+        document.getElementById('logoutBtn').addEventListener('click', handleLogout);
+        document.getElementById('darkModeIcon').onclick = function () {
+            document.body.classList.toggle('dark-mode');
+            const header = document.querySelector('header');
+            const section = document.querySelector('section');
+            const cards = document.querySelectorAll('.card');
+
+            header.classList.toggle('dark-mode');
+            section.classList.toggle('dark-mode');
+
+            cards.forEach(card => {
+                card.classList.toggle('dark-mode');
+            });
+
+            // Change the icon based on the mode
+            if (document.body.classList.contains('dark-mode')) {
+                this.classList.remove('fa-moon');
+                this.classList.add('fa-sun');
+            } else {
+                this.classList.remove('fa-sun');
+                this.classList.add('fa-moon');
+            }
+        };
         const fetchDetail = async () => {
             const credit1 = document.getElementById('credit1')
             const credit2 = document.getElementById('credit2')
@@ -218,7 +333,7 @@
         //     const token = localStorage.getItem('accessToken');
         //     const headers = new Headers();
         //     headers.append('Authorization', `Bearer ${token}`);
-        //     const response=await fetch('http://localhost:3000/dis_criteria',{
+        //     const response=await fetch('/dis_criteria',{
         //         method:'POST',
         //         headers:headers,
         //     })

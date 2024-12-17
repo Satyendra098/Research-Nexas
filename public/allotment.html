@@ -5,6 +5,12 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+   <link rel="apple-touch-icon" sizes="180x180" href="images/Research_Nexas_favicon_io/apple-touch-icon.png">
+   <link rel="icon" type="image/png" sizes="32x32" href="images/Research_Nexas_favicon_io/favicon-32x32.png">
+   <link rel="icon" type="image/png" sizes="16x16" href="images/Research_Nexas_favicon_io/favicon-16x16.png">
+   <link rel="manifest" href="images/Research_Nexas_favicon_io/site.webmanifest">
+   
    <title>Document</title>
    <style>
       * {
@@ -58,7 +64,7 @@
       button:hover {
          background-color: rgb(18, 102, 133);
       }
-      
+
       .box {
          background-color: white;
          padding: 16px;
@@ -66,25 +72,27 @@
          display: flex;
          border-radius: 20px;
          flex-direction: column;
+         border-bottom-left-radius: 0px;
+         border-bottom-right-radius: 0px;
       }
 
       .box p {
          text-align: center;
          display: inline;
-         padding: 8px 8px;
+         padding: 0.2vw 0.2vw;
          background-color: rgb(240, 237, 237);
          border-radius: 10px;
       }
 
       #container {
-         position: absolute;
-         top: 20%;
+         position: fixed;
+         top: 3%;
          z-index: 2;
-         left: 30%;
+         left: 35%;
          display: flex;
-         border-radius: 20px;
-         border: 3px solid rgb(10, 159, 218);
-         background-color: white;
+         flex-direction: column;
+         justify-content: center;
+         align-items: center;
          display: none;
       }
 
@@ -122,6 +130,9 @@
          display: flex;
          flex-direction: column;
          font-size: 20px;
+         background-color: white;
+         border-bottom-left-radius: 20px;
+         border-bottom-right-radius: 20px;
       }
 
       .allotment input {
@@ -142,10 +153,25 @@
       .btn button {
          margin: 5px;
       }
+
    </style>
 </head>
 
 <body>
+   <div style="position: absolute; bottom: 30px; left: 30px;" class="gtranslate_wrapper"></div>
+   <script>
+      window.gtranslateSettings = {
+        default_language: "en",
+        detect_browser_language: true,
+        wrapper_selector: ".gtranslate_wrapper",
+        font_size: 100,
+      };
+    </script>
+    <script
+    src="https://cdn.gtranslate.net/widgets/latest/popup.js"
+    defer
+  ></script>
+
    <p id="result1"><i class="fa-solid fa-check" style="padding: 0px 12px;font-size: 26px;"></i>Paper Alloted! Refreshing
    </p>
    <p id="result2"><i class="fa-solid fa-xmark" style="padding: 0px 12px;font-size: 26px;"></i>An error occured during
@@ -181,18 +207,34 @@
       </div>
       <div class="allotment">
          <div>
-            <h4 style="font-size: 28px;text-align: center;margin: 20px;">Allot Faculty</h4>
-            <p style="padding: 8px 10px 26px 10px;color: rgb(94, 77, 55);">An email will be send on this id to set a password!</p>
+            <h4 style="font-size: 28px;text-align: center;margin: 0px;">Allot Faculty</h4>
+            <p style="padding: 0px 10px 0px 10px;color: rgb(94, 77, 55);">An email will be send on this id to set a
+               password!</p>
          </div>
          <label style="margin: 0px 10px;font-weight: bold;">Email:</label>
-         <input type="email"id="fac_mail" placeholder="Enter email of the faculty">
+         <input type="email" id="fac_mail" placeholder="Enter email of the faculty">
          <div class="btn">
             <button id="cancel" style="background-color: rgb(201, 198, 198);color: black;">Cancel</button>
             <button id="approve">Allot</button>
          </div>
       </div>
    </div>
-
+   <script>
+      const token = localStorage.getItem('accessToken');
+      if (!token) {
+          window.location.href = '/';
+      }
+      window.embeddedChatbotConfig = {
+      chatbotId: "iSwsMwg5TfWCzADbpz05-",
+      domain: "www.chatbase.co"
+      }
+      </script>
+      <script
+      src="https://www.chatbase.co/embed.min.js"
+      chatbotId="iSwsMwg5TfWCzADbpz05-"
+      domain="www.chatbase.co"
+      defer>
+      </script>
    <script src="script/paper_allotment.js"></script>
 </body>
 

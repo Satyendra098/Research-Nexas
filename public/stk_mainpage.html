@@ -4,19 +4,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/main_page_style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="css/stk_mainstyling.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="images/Research_Nexas_favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/Research_Nexas_favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/Research_Nexas_favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="images/Research_Nexas_favicon_io/site.webmanifest">
+
     <title>Main Page</title>
+    <style>
+        #icon {
+            width: 30px;
+            cursor: pointer;
+            position: absolute;
+            top: 30px;
+            right: 100px;
+        }
+    </style>
 </head>
 
 <body>
+    <div style="position: absolute; bottom: 30px; left: 30px;" class="gtranslate_wrapper"></div>
+    <script>
+        const token = localStorage.getItem('accessToken');
+        if (!token) {
+            window.location.href = '/';
+        }
+        window.gtranslateSettings = {
+            default_language: "en",
+            detect_browser_language: true,
+            wrapper_selector: ".gtranslate_wrapper",
+            font_size: 100,
+        };
+    </script>
+    <script src="https://cdn.gtranslate.net/widgets/latest/popup.js" defer></script>
     <div class="head">
-        <div class="logo"><img src="images/logo.png" alt="" width="160px"></div>
-        <div id="heading" style="font-size: 34px;color: white;">Research Nexas</div>
-        <div>
-            <a href="stk_dashboard.html" title="View Profile"><i class="fa-solid fa-user"
-                    style="font-size: 30px;padding: 12px 13px;border:3px solid white;border-radius:50%;color:white"></i></a>
+        <div><a href="/"><img src="images/logo3.png" alt="Logo of Research-Nexas" width="80px"></a></div>
+        <div class="logo">
+            <img src="images/dark_mode.webp" id="icon" width="40px">
+            <a href="/stk_dashboard.html" title="View Profile">
+                <i class="fa-solid fa-user"></i>
+            </a>
         </div>
     </div>
     <main>
@@ -36,19 +65,19 @@
             <div>
                 <h2 style="margin: 4px;padding: 8px;">Allot Papers</h2>
                 <p>Allot Papers to the faculties</p>
-                <a href="allotment.html">Go ahead <i class="fa-solid fa-arrow-right"
+                <a href="/allotment.html">Go ahead <i class="fa-solid fa-arrow-right"
                         style="font-size: 18px;padding: 0px 4px 0px 10px;"></i></a>
             </div>
             <div>
                 <h2 style="margin: 4px;padding: 8px;">Approve Topics</h2>
                 <p>Approve topics choosen by the students</p>
-                <a href="">Go ahead <i class="fa-solid fa-arrow-right"
+                <a href="/approve_topic.html">Go ahead <i class="fa-solid fa-arrow-right"
                         style="font-size: 18px;padding: 0px 4px 0px 10px;"></i></a>
             </div>
         </div>
     </main>
     <section>
-        <h2>Approval</h2>
+        <h2 style="text-align: center;font-size: 2.3rem;margin: 20px;">Approval</h2>
         <div class="approve">
             <div class="app_box" id="app_box1">
                 <h3>Topics</h3>
@@ -63,10 +92,11 @@
                     ullam!</p>
             </div>
         </div>
-        <h2>Paper Allotment</h2>
+        <h2 style="text-align: center;font-size: 2.3rem;margin: 20px;">Paper Allotment</h2>
         <div class="allot">
             <div class="allot-box">
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veniam, sint. Voluptatibus fugit itaque
+                <p class="text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veniam, sint. Voluptatibus
+                    fugit itaque
                     molestias consectetur quidem beatae placeat error doloremque laboriosam mollitia quae accusamus
                     architecto alias eligendi veritatis voluptas, facere praesentium, cupiditate rerum ipsum suscipit
                     porro
@@ -75,12 +105,13 @@
                     nostrum excepturi, et aliquam quos?</p>
             </div>
             <div class="image">
-                <img src="images/career_pic.jpg" alt="">
+                <img src="images/career_pic.webp" alt="">
             </div>
         </div>
         <div id="criteria">
-            <h2>Set Evaluation Criteria</h2>
-            <p style="text-align: center;color: red;font-size: 18px;">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime accusantium delectus repellat, fugit
+            <h2 style="text-align: center;font-size: 2.3rem;margin: 20px;">Set Evaluation Criteria</h2>
+            <p style="text-align: center;color: red;font-size: 18px;">Lorem ipsum, dolor sit amet consectetur
+                adipisicing elit. Maxime accusantium delectus repellat, fugit
                 recusandae deserunt ab laborum omnis sequi quas placeat facere dignissimos quia hic eius dolorem
                 corrupti temporibus vitae, corporis autem fugiat nemo, quaerat reiciendis? Quasi, animi!</p>
             <div class="form-container">
@@ -90,11 +121,17 @@
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque nemo exercitationem molestias
                         repellendus autem sed. Eum reprehenderit fugiat quia iure repudiandae sunt nisi harum!</p>
                     <form>
-                        <label><input type="radio" value="high" name="step1">High Priority</label>
-                        <label><input type="radio" value="medium" name="step1">Midium</label>
-                        <label><input type="radio" value="low" name="step1">Low Priority</label>
+                        <div class="group">
+                            <div class="radio-group">
+                                <label><input type="radio" value="high" name="step1">High Priority</label>
+                                <label><input type="radio" value="medium" name="step1">Medium Priority</label>
+                                <label><input type="radio" value="low" name="step1">Low Priority</label>
+                            </div>
+                        </div>
                         <div class="btn">
-                            <button class="next-btn" onclick="nextStep()" type="button">Next</button>
+                            <button class="next-btn" onclick="nextStep()" type="button">Next<i
+                                    style="font-size: 18px;padding: 0px 4px 0px 10px;"
+                                    class="fa fa-angle-right"></i></button>
                         </div>
                     </form>
                 </div>
@@ -103,12 +140,20 @@
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque nemo exercitationem molestias
                         repellendus autem sed. Eum reprehenderit fugiat quia iure repudiandae sunt nisi harum!</p>
                     <form>
-                        <label><input type="radio" value="high" name="step2">High Priority</label>
-                        <label><input type="radio" value="medium" name="step2">Midium</label>
-                        <label><input type="radio" value="low" name="step2">Low Priority</label>
+                        <div class="group">
+                            <div class="radio-group">
+                                <label><input type="radio" value="high" name="step2">High Priority</label>
+                                <label><input type="radio" value="medium" name="step2">Medium Priority</label>
+                                <label><input type="radio" value="low" name="step2">Low Priority</label>
+                            </div>
+                        </div>
                         <div class="btn">
-                            <button class="prev-btn" onclick="prevStep()" type="button">Back</button>
-                            <button class="next-btn" onclick="nextStep()" type="button">Next</button>
+                            <button class="prev-btn" onclick="prevStep()" type="button"><i
+                                    style="font-size: 18px;padding: 0px 10px 0px 4px;"
+                                    class="fa-solid fa-angle-left"></i>Back</button>
+                            <button class="next-btn" onclick="nextStep()" type="button">Next<i
+                                    style="font-size: 18px;padding: 0px 4px 0px 10px;"
+                                    class="fa-solid fa-angle-right"></i></button>
                         </div>
                     </form>
                 </div>
@@ -117,12 +162,20 @@
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque nemo exercitationem molestias
                         repellendus autem sed. Eum reprehenderit fugiat quia iure repudiandae sunt nisi harum!</p>
                     <form>
-                        <label><input type="radio" value="high" name="step3">High Priority</label>
-                        <label><input type="radio" value="medium" name="step3">Midium</label>
-                        <label><input type="radio" value="low" name="step3">Low Priority</label>
+                        <div class="group">
+                            <div class="radio-group">
+                                <label><input type="radio" value="high" name="step3">High Priority</label>
+                                <label><input type="radio" value="medium" name="step3">Medium Priority</label>
+                                <label><input type="radio" value="low" name="step3">Low Priority</label>
+                            </div>
+                        </div>
                         <div class="btn">
-                            <button class="prev-btn" onclick="prevStep()" type="button">Back</button>
-                            <button class="next-btn" onclick="nextStep()" type="button">Next</button>
+                            <button class="prev-btn" onclick="prevStep()" type="button"><i
+                                    style="font-size: 18px;padding: 0px 10px 0px 4px;"
+                                    class="fa-solid fa-angle-left"></i>Back</button>
+                            <button class="next-btn" onclick="nextStep()" type="button">Next<i
+                                    style="font-size: 18px;padding: 0px 4px 0px 10px;"
+                                    class="fa-solid fa-angle-right"></i></button>
                         </div>
                     </form>
                 </div>
@@ -131,12 +184,20 @@
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque nemo exercitationem molestias
                         repellendus autem sed. Eum reprehenderit fugiat quia iure repudiandae sunt nisi harum!</p>
                     <form>
-                        <label><input type="radio" value="high" name="step4">High Priority</label>
-                        <label><input type="radio" value="medium" name="step4">Midium</label>
-                        <label><input type="radio" value="low" name="step4">Low Priority</label>
+                        <div class="group">
+                            <div class="radio-group">
+                                <label><input type="radio" value="high" name="step4">High Priority</label>
+                                <label><input type="radio" value="medium" name="step4">Medium Priority</label>
+                                <label><input type="radio" value="low" name="step4">Low Priority</label>
+                            </div>
+                        </div>
                         <div class="btn">
-                            <button class="prev-btn" onclick="prevStep()" type="button">Back</button>
-                            <button class="next-btn" onclick="nextStep()" type="button">Next</button>
+                            <button class="prev-btn" onclick="prevStep()" type="button"><i
+                                    style="font-size: 18px;padding: 0px 10px 0px 4px;"
+                                    class="fa-solid fa-angle-left"></i>Back</button>
+                            <button class="next-btn" onclick="nextStep()" type="button">Next<i
+                                    style="font-size: 18px;padding: 0px 4px 0px 10px;"
+                                    class="fa-solid fa-angle-right"></i></button>
                         </div>
                     </form>
                 </div>
@@ -145,22 +206,30 @@
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque nemo exercitationem molestias
                         repellendus autem sed. Eum reprehenderit fugiat quia iure repudiandae sunt nisi harum!</p>
                     <form>
-                        <label>Name of Method:</label>
-                        <input type="text">
-                        <label>What the method is(less than 100 words):</label>
-                        <input type="text">
-                        <label><input type="radio" value="" name="step5">High Priority</label>
-                        <label><input type="radio" value="" name="step5">Midium</label>
-                        <label><input type="radio" value="" name="step5">Low Priority</label>
-                        <p style="display: none;font-size: 19px;color: green;" id="result">Successfully executed!</p>
-                        <p style="display: none;font-size: 19px;color: red;" id="result2">An error occured!</p>
+                        <div class="group">
+                            <div class="radio-group">
+                                <label>Name of Method:</label>
+                                <input type="text">
+                                <label>What the method is(less than 100 words):</label>
+                                <input type="text">
+                                <label><input type="radio" value="" name="step5">High Priority</label>
+                                <label><input type="radio" value="" name="step5">Medium Priority</label>
+                                <label><input type="radio" value="" name="step5">Low Priority</label>
+                                <p style="display: none;font-size: 19px;color: green;" id="result">Successfully
+                                    executed!</p>
+                                <p style="display: none;font-size: 19px;color: red;" id="result2">An error occured!</p>
+                            </div>
+                        </div>
                         <div class="btn">
-                            <button class="prev-btn" onclick="prevStep()" type="button">Back</button>
+                            <button class="prev-btn" onclick="prevStep()" type="button"><i
+                                    style="font-size: 18px;padding: 0px 10px 0px 4px;"
+                                    class="fa-solid fa-angle-left"></i>Back</button>
                             <button type="button" onclick="set()" id="submit" class="submit-btn">Submit</button>
                         </div>
-                    </form>
                 </div>
+                </form>
             </div>
+        </div>
         </div>
     </section>
 
@@ -172,16 +241,17 @@
                 <div class="footer-col">
                     <h4>company</h4>
                     <ul>
-                        <li><a href="#">about us</a></li>
-                        <li><a href="#">our services</a></li>
-                        <li><a href="#">privacy policy</a></li>
-                        <li><a href="#">affiliate program</a></li>
+                        <li><a href="/#about_show">about us</a></li>
+                        <li><a href="/contributor.html">our contributors</a></li>
+                        <li><a href="/#services">our services</a></li>
+                        <li><a href="/privacy_policy.html">privacy policy</a></li>
+                        <li><a href="/affiliate_program.html">affiliate program</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
                     <h4>get help</h4>
                     <ul>
-                        <li><a href="#">FAQ</a></li>
+                        <li><a href="/#faq_sec">FAQ</a></li>
                         <li><a href="#">shipping</a></li>
                         <li><a href="#">returns</a></li>
                         <li><a href="#">order status</a></li>
@@ -200,15 +270,68 @@
                 <div class="footer-col">
                     <h4>follow us</h4>
                     <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://facebook.com"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://x.com"><i class="fab fa-twitter"></i></a>
+                        <a href="https://instagram.com"><i class="fab fa-instagram"></i></a>
+                        <a href="https://linkedin.com"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
             </div>
         </div>
     </footer>
+
+    <button id="scrollToTopBtn" class="scroll-top" aria-label="Scroll to top" style="bottom: 72px;">
+        <div class="scroll-top-icon">
+            <i class="fa-solid fa-arrow-up"></i>
+        </div>
+        <svg class="progress-ring" width="60" height="60">
+            <circle class="progress-ring__circle" stroke="#ffffff" stroke-width="4" fill="transparent" r="28" cx="30"
+                cy="30"></circle>
+        </svg>
+    </button>
+    <script>
+        // Get the button
+        const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+        const progressCircle = document.querySelector(".progress-ring__circle");
+        const radius = progressCircle.r.baseVal.value;
+        const circumference = 2 * Math.PI * radius;
+
+        // Set the circle progress properties
+        progressCircle.style.strokeDasharray = `${circumference} ${circumference}`;
+        progressCircle.style.strokeDashoffset = circumference;
+
+        // Function to show or hide the button based on scroll position
+        function toggleScrollButton() {
+            if (window.scrollY > 100) {
+                scrollToTopBtn.classList.add("show");
+            } else {
+                scrollToTopBtn.classList.remove("show");
+            }
+        }
+
+        // Function to set the scroll progress on the button ring
+        function setProgress(percent) {
+            const offset = circumference - (percent / 100) * circumference;
+            progressCircle.style.strokeDashoffset = offset;
+        }
+
+        // Listen for scroll events to update button visibility and progress
+        window.addEventListener("scroll", () => {
+            toggleScrollButton();
+            const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            setProgress(scrollPercent);
+        });
+
+        // Smooth scroll to top when the button is clicked
+        scrollToTopBtn.addEventListener("click", () => {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
+
+    </script>
+
     <script src="script/stk_mainpage.js"></script>
 </body>
 
